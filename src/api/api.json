@@ -1,5 +1,5 @@
 {
-    "api": "http://localhost/graphql",
-    "auth": "http://localhost/auth",
-    "authorization": "http://localhost/authorization"
+    "api": "http://192.168.0.2",
+    "auth": "http://192.168.0.2/auth",
+    "authorization": "http://192.168.0.2/authorization"
 }
