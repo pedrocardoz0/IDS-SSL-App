@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {View, Text, Button} from 'react-native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './components/login/Login';
 import UserAPI from './src/api/User';
@@ -12,19 +16,32 @@ const App = () => {
   const Drawer = createDrawerNavigator();
 
   async function getUser() {
-    const final = await UserAPI.get();
+    const final = await UserAPI.me();
     setUser(final.data[0]);
+  }
+
+  function logout() {
+    UserAPI.logout();
+    setUser(null);
   }
 
   useEffect(() => {
     getUser();
-  });
+  }, []);
 
   if (user) {
     return (
       <NavigationContainer>
         <AppContext.Provider value={user}>
-          <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Navigator
+            initialRouteName="Home"
+            drawerContent={(props) => {
+              return (
+                <DrawerContentScrollView {...props}>
+                  <DrawerItem label="Logout" onPress={() => logout()} />
+                </DrawerContentScrollView>
+              );
+            }}>
             <Drawer.Screen name="Home" component={HomeScreen} />
           </Drawer.Navigator>
         </AppContext.Provider>

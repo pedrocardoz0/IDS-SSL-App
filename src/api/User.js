@@ -7,8 +7,24 @@ const userAPI = {
       method: 'GET',
       url: `${api}/v1/user`,
     });
-    // console.log(result)
+
     return result;
+  },
+
+  async me() {
+    const result = await Axios({
+      method: 'GET',
+      url: `${api}/v1/me`,
+    });
+
+    return result;
+  },
+
+  async logout() {
+    return await Axios({
+      method: 'POST',
+      url: `${api}/logout`,
+    });
   },
 };
 
