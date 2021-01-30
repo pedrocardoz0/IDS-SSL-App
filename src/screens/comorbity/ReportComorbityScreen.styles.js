@@ -17,11 +17,9 @@ export default StyleSheet.create({
     borderColor: '#000',
   },
 
-  dropDownHeight: {height: 40},
+  dropDownHeight: {width: '100%', height: 100},
 
-  dropDownItem: {justifyContent: 'flex-start'},
-
-  dropDownBgColor: {backgroundColor: '#fafafa'},
+  dropDownItem: {height: 100},
 
   textArea: {
     backgroundColor: '#E5E5E5',

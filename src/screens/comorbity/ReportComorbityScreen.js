@@ -36,13 +36,14 @@ const ReportComorbityScreen = () => {
 
           <Picker
             selectedValue={selected}
-            style={{width: '100%', height: 100}}
-            itemStyle={{height: 100}}
+            style={styles.dropDownHeight}
+            itemStyle={styles.dropDownItem}
             onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
             {country.map((p) => (
               <Picker.Item label={p} value={p} />
             ))}
           </Picker>
+
           <Text style={[styles.fieldName, styles.fieldRed]}>
             Cadastrar nova pessoa
           </Text>
