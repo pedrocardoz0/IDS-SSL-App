@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subText}>Olá, {user.name}</Text>
+      <Text style={styles.subText}>Olá, {user.user.name}</Text>
       <Text style={styles.mainText}>Selecione uma opção</Text>
     </View>
   );

@@ -5,7 +5,7 @@ import Layout from '../../../components/layout';
 import Feed from '../../../components/feed';
 import styles from './home.styles';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const data = [
     {
       text: 'Registrar Novo Caso',
@@ -33,7 +33,13 @@ export default function HomeScreen() {
         <Layout>
           {data.map((d, index) => {
             return (
-              <Feed text={d.text} image={d.image} link={d.link} key={index} />
+              <Feed
+                navigation={navigation}
+                text={d.text}
+                image={d.image}
+                link={d.link}
+                key={index}
+              />
             );
           })}
         </Layout>

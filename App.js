@@ -1,55 +1,68 @@
-import React, {useState, useEffect} from 'react';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import React, {Component} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+
+import HomeDrawerStack from './src/stack/HomeDrawerStack';
+import ComorbityStack from './src/stack/ComorbityStack';
 import Login from './components/login/Login';
+
 import UserAPI from './src/api/User';
 import AppContext from './context/AppContext';
-import HomeScreen from './src/screens/home';
 
-const App = () => {
-  const [user, setUser] = useState(undefined);
-  const Drawer = createDrawerNavigator();
+class App extends Component {
+  constructor() {
+    super();
 
-  async function getUser() {
+    this.state = {
+      user: '',
+      getUser: this.getUser,
+      logout: this.logout,
+    };
+    this.getUser = this.getUser.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  async getUser() {
     const final = await UserAPI.me();
-    setUser(final.data[0]);
+    console.log(final.data[0]);
+    this.setState({user: final.data[0]});
   }
 
-  function logout() {
+  logout = () => {
     UserAPI.logout();
-    setUser(null);
+    this.setState({user: false});
+  };
+
+  componentDidMount() {
+    this.getUser();
   }
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  render() {
+    const Stack = createStackNavigator();
 
-  if (user) {
-    return (
-      <NavigationContainer>
-        <AppContext.Provider value={user}>
-          <Drawer.Navigator
-            initialRouteName={user ? 'Home' : 'Login'}
-            drawerContent={(props) => {
-              return (
-                <DrawerContentScrollView {...props}>
-                  <DrawerItem label="Logout" onPress={() => logout()} />
-                </DrawerContentScrollView>
-              );
-            }}>
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Login" component={Login} />
-          </Drawer.Navigator>
-        </AppContext.Provider>
-      </NavigationContainer>
-    );
-  } else {
-    return <Login getUser={getUser} />;
+    if (this.state.user) {
+      return (
+        <NavigationContainer>
+          <AppContext.Provider value={this.state}>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen
+                name="Home"
+                component={HomeDrawerStack}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Comorbity"
+                component={ComorbityStack}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
+          </AppContext.Provider>
+        </NavigationContainer>
+      );
+    } else {
+      return <Login getUser={this.getUser} />;
+    }
   }
-};
+}
 
 export default App;

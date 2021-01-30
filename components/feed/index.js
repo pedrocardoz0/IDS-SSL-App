@@ -1,35 +1,24 @@
 import React from 'react';
-import {View, Text, TouchableHighlight, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Link from './Link';
+import styles from './Feed.styles';
+
 function Feed(props) {
   return (
-    <TouchableHighlight
-      onPress={() => console.log('h1')}
-      style={{
-        flex: 0.2,
-        backgroundColor: '#FFF',
-        padding: 26,
-        borderRadius: 16,
-        marginBottom: 16,
-      }}>
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{width: '50%'}}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              fontSize: 24,
-              height: '90%'
-            }}>
-            {props.text}
-          </Text>
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate('Comorbity')}
+      style={styles.container}>
+      <View style={styles.interWrapper}>
+        <View style={styles.helfWidth}>
+          <Text style={styles.cardTitle}>{props.text}</Text>
 
-          <Link text={props.link}/>
+          <Link text={props.link} />
         </View>
-        <View style={{width: '50%'}}>
-          <Image style={{height: 100}} source={{uri: props.image}} />
+        <View style={styles.helfWidth}>
+          <Image style={styles.image} source={{uri: props.image}} />
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 
