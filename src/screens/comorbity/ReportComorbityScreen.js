@@ -1,20 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, ScrollView} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons';
 import styles from './ReportComorbityScreen.styles';
 import patientAPI from '../../api/Patient';
 
 const ReportComorbityScreen = () => {
-  const [country, setCountry] = useState([
-    'UK',
-    'BR',
-    'IR',
-    'IT',
-    'FR',
-    'NW',
-    'US',
-  ]);
+  const [textReport, setTextReport] = useState('');
   const [selected, setSelected] = useState('');
   const [patients, setPatients] = useState('');
 
@@ -22,8 +13,7 @@ const ReportComorbityScreen = () => {
     patientAPI
       .list()
       .then((response) => {
-        setPatients(response.data.data);
-        console.log(patients);
+        setPatients(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -39,8 +29,8 @@ const ReportComorbityScreen = () => {
             style={styles.dropDownHeight}
             itemStyle={styles.dropDownItem}
             onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
-            {country.map((p) => (
-              <Picker.Item label={p} value={p} />
+            {patients.map(({name, id_patient}) => (
+              <Picker.Item label={name} value={id_patient} />
             ))}
           </Picker>
 
@@ -55,6 +45,7 @@ const ReportComorbityScreen = () => {
           <TextInput
             style={styles.textArea}
             placeholder="Digite os registros ..."
+            onChangeText={setTextReport}
             multiline={true}
             numberOfLines={4}
           />
