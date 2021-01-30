@@ -31,16 +31,10 @@ const ReportComorbityScreen = () => {
               },
             ]}
             defaultValue={country}
-            containerStyle={{height: 40}}
-            style={{
-              backgroundColor: '#E5E5E5',
-              borderWidth: 2,
-              borderColor: '#000',
-            }}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
+            containerStyle={styles.dropDownHeight}
+            style={styles.dropDown}
+            itemStyle={styles.dropDownItem}
+            dropDownStyle={styles.dropDownBgColor}
             onChangeItem={(item) => setCountry(item.value)}
           />
 
@@ -60,6 +54,7 @@ const ReportComorbityScreen = () => {
           />
         </View>
       </View>
+
       <View style={styles.internWrapper}>
         <View style={styles.marginFields}>
           <Text style={styles.multimidiaText}>Multimídia</Text>
