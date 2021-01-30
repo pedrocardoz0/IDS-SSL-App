@@ -1,43 +1,48 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, ScrollView} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import {Picker} from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons';
 import styles from './ReportComorbityScreen.styles';
+import patientAPI from '../../api/Patient';
 
 const ReportComorbityScreen = () => {
-  const [country, setCountry] = useState('uk');
+  const [country, setCountry] = useState([
+    'UK',
+    'BR',
+    'IR',
+    'IT',
+    'FR',
+    'NW',
+    'US',
+  ]);
+  const [selected, setSelected] = useState('');
+  const [patients, setPatients] = useState('');
+
+  useEffect(() => {
+    patientAPI
+      .list()
+      .then((response) => {
+        setPatients(response.data.data);
+        console.log(patients);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.internWrapper}>
         <View style={styles.marginFields}>
           <Text style={styles.fieldName}>Selecione uma pessoa</Text>
-          <DropDownPicker
-            items={[
-              {
-                label: 'USA',
-                value: 'usa',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-                hidden: true,
-              },
-              {
-                label: 'UK',
-                value: 'uk',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-              },
-              {
-                label: 'France',
-                value: 'france',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-              },
-            ]}
-            defaultValue={country}
-            containerStyle={styles.dropDownHeight}
-            style={styles.dropDown}
-            itemStyle={styles.dropDownItem}
-            dropDownStyle={styles.dropDownBgColor}
-            onChangeItem={(item) => setCountry(item.value)}
-          />
 
+          <Picker
+            selectedValue={selected}
+            style={{width: '100%', height: 100}}
+            itemStyle={{height: 100}}
+            onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
+            {country.map((p) => (
+              <Picker.Item label={p} value={p} />
+            ))}
+          </Picker>
           <Text style={[styles.fieldName, styles.fieldRed]}>
             Cadastrar nova pessoa
           </Text>

@@ -5,16 +5,12 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import HomeScreen from '../screens/home';
-import UserAPI from '../api/User';
 import AppContext from '../../context/AppContext';
 
 const HomeStack = () => {
   const user = useContext(AppContext);
   const Drawer = createDrawerNavigator();
 
-  const see = () => {
-    console.log(user);
-  };
   return (
     <Drawer.Navigator
       initialRouteName="HomeScreen"
