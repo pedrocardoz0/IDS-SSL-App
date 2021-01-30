@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text} from 'react-native';
 import styles from './Header.styles';
+import AppContext from '../../context/AppContext';
 
-export default function Header() {
+const Header = () => {
+  const user = useContext(AppContext);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.subText}>Olá, Michal</Text>
+      <Text style={styles.subText}>Olá, {user.name}</Text>
       <Text style={styles.mainText}>Selecione uma opção</Text>
     </View>
   );
-}
+};
+
+export default Header;

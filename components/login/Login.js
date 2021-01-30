@@ -1,6 +1,17 @@
 import React, {useState} from 'react';
-import {View, Text, SafeAreaView, TextInput, Button} from 'react-native';
+import {
+  Platform,
+  View,
+  Text,
+  SafeAreaView,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from 'react-native';
+import Logo from '../logo';
 import AuthAPI from '../../src/api/Auth';
+import styles from './Login.style';
+
 
 const Login = (props) => {
   const [email, setEmail] = useState(undefined);
@@ -17,14 +28,38 @@ const Login = (props) => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text>Email</Text>
-      <TextInput onChangeText={(mess) => setEmail(mess)} />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.flexContainer}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}>
+        <Logo />
 
-      <Text>Password</Text>
-      <TextInput onChangeText={(mess) => setPassword(mess)} />
+        <Text style={styles.inputLabel}>Email</Text>
+        <TextInput
+          style={styles.inputContainer}
+          placeholder="email"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          onChangeText={(mess) => setEmail(mess)}
+        />
 
-      <Button title="Send" onPress={loginUser} />
+        <Text style={styles.inputLabel}>Senha</Text>
+        <TextInput
+          style={styles.inputContainer}
+          placeholder="senha"
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
+          onChangeText={(mess) => setPassword(mess)}
+        />
+        <View style={styles.wrapperButton}>
+          <TouchableOpacity style={styles.sendButton} onPress={loginUser}>
+            <Text style={styles.sendButtonText}>Logar</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

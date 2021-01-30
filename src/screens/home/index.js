@@ -1,15 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, SafeAreaView} from 'react-native';
 import Header from '../../../components/header/Header';
 import Layout from '../../../components/layout';
 import Feed from '../../../components/feed';
 import styles from './home.styles';
-import AppContext from '../../../context/AppContext';
 
 export default function HomeScreen() {
-  const user = useContext(AppContext);
-
-  console.log(user);
   const data = [
     {
       text: 'Registrar Novo Caso',
@@ -35,8 +31,10 @@ export default function HomeScreen() {
         <Header />
 
         <Layout>
-          {data.map((d) => {
-            return <Feed text={d.text} image={d.image} link={d.link} />;
+          {data.map((d, index) => {
+            return (
+              <Feed text={d.text} image={d.image} link={d.link} key={index} />
+            );
           })}
         </Layout>
       </View>

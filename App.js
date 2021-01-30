@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -34,7 +33,7 @@ const App = () => {
       <NavigationContainer>
         <AppContext.Provider value={user}>
           <Drawer.Navigator
-            initialRouteName="Home"
+            initialRouteName={user ? 'Home' : 'Login'}
             drawerContent={(props) => {
               return (
                 <DrawerContentScrollView {...props}>
@@ -43,6 +42,7 @@ const App = () => {
               );
             }}>
             <Drawer.Screen name="Home" component={HomeScreen} />
+            <Drawer.Screen name="Login" component={Login} />
           </Drawer.Navigator>
         </AppContext.Provider>
       </NavigationContainer>
