@@ -1,42 +1,62 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, ScrollView} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import React, {useState, useEffect, useContext} from 'react';
+import {View, Text, TextInput, ScrollView, Button} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 import styles from './ReportComorbityScreen.styles';
-
+import patientAPI from '../../api/Patient';
+import reportAPI from '../../api/Report';
+import AppContext from '../../../context/AppContext';
 const ReportComorbityScreen = () => {
-  const [country, setCountry] = useState('uk');
+  const [textReport, setTextReport] = useState('');
+  const [selected, setSelected] = useState('');
+  const user = useContext(AppContext);
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    patientAPI
+      .list()
+      .then((response) => {
+        setPatients(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    console.log(selected);
+    console.log(textReport);
+    console.log(user.user.id_user);
+  });
+
+  const sendReport = () => {
+    const reportBody = {
+      message: textReport,
+      id_user: user.user.id_user,
+      id_patient: selected,
+    };
+
+    reportAPI
+      .create(reportBody)
+      .then((response) => {
+        alert('Registro enviado !');
+      })
+      .catch((err) => alert('Falha ao enviar !'));
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.internWrapper}>
         <View style={styles.marginFields}>
           <Text style={styles.fieldName}>Selecione uma pessoa</Text>
-          <DropDownPicker
-            items={[
-              {
-                label: 'USA',
-                value: 'usa',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-                hidden: true,
-              },
-              {
-                label: 'UK',
-                value: 'uk',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-              },
-              {
-                label: 'France',
-                value: 'france',
-                icon: () => <Icon name="flag" size={18} color="#900" />,
-              },
-            ]}
-            defaultValue={country}
-            containerStyle={styles.dropDownHeight}
-            style={styles.dropDown}
+
+          <Picker
+            selectedValue={selected}
+            style={styles.dropDownHeight}
             itemStyle={styles.dropDownItem}
-            dropDownStyle={styles.dropDownBgColor}
-            onChangeItem={(item) => setCountry(item.value)}
-          />
+            onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
+            <Picker.Item label="selecione uma pessoa" value="" />
+            {patients.map(({name, id_patient}, index) => (
+              <Picker.Item label={name} value={id_patient} key={index} />
+            ))}
+          </Picker>
 
           <Text style={[styles.fieldName, styles.fieldRed]}>
             Cadastrar nova pessoa
@@ -49,6 +69,7 @@ const ReportComorbityScreen = () => {
           <TextInput
             style={styles.textArea}
             placeholder="Digite os registros ..."
+            onChangeText={setTextReport}
             multiline={true}
             numberOfLines={4}
           />
@@ -60,6 +81,8 @@ const ReportComorbityScreen = () => {
           <Text style={styles.multimidiaText}>Multimídia</Text>
         </View>
       </View>
+
+      <Button title="Enviar" onPress={sendReport} />
     </ScrollView>
   );
 };
