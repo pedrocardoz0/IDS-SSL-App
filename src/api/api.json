@@ -1,5 +1,5 @@
 {
-    "api": "http://192.168.0.3",
-    "auth": "http://192.168.0.3/auth",
-    "authorization": "http://192.168.0.3/authorization"
+    "api": "http://192.168.0.2",
+    "auth": "http://192.168.0.2/auth",
+    "authorization": "http://192.168.0.2/authorization"
 }

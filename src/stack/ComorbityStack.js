@@ -11,8 +11,14 @@ const ComorbityStack = () => {
         component={ReportComorbityScreen}
         options={{
           headerShown: true,
-          title: 'Registrar Novo Caso',
-          headerStyle: {elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
+          title: 'Voltar',
+          headerBackTitleVisible: false,
+          headerTintColor: '#000',
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
         }}
       />
     </Stack.Navigator>

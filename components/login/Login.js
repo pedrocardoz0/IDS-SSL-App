@@ -35,17 +35,16 @@ const Login = (props) => {
         keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}>
         <Logo />
 
-        <Text style={styles.inputLabel}>Email</Text>
         <TextInput
           style={styles.inputContainer}
           placeholder="email"
           autoCapitalize="none"
+          placeholderTextColor="#A0A3BD"
           autoCorrect={false}
           keyboardType="email-address"
           onChangeText={(mess) => setEmail(mess)}
         />
 
-        <Text style={styles.inputLabel}>Senha</Text>
         <TextInput
           style={styles.inputContainer}
           placeholder="senha"

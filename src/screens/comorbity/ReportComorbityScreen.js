@@ -1,5 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TextInput, ScrollView, Button} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Button,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import styles from './ReportComorbityScreen.styles';
 import patientAPI from '../../api/Patient';
@@ -42,48 +50,56 @@ const ReportComorbityScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.internWrapper}>
-        <View style={styles.marginFields}>
-          <Text style={styles.fieldName}>Selecione uma pessoa</Text>
+    <KeyboardAvoidingView
+      style={styles.flexOne}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}>
+      <ScrollView style={styles.container}>
+        <View style={styles.internWrapper}>
+          <View style={styles.marginFields}>
+            <Text style={styles.title}>Registrar </Text>
+            <Text style={[styles.title, styles.titleMargin]}>Novo Caso</Text>
 
-          <Picker
-            selectedValue={selected}
-            style={styles.dropDownHeight}
-            itemStyle={styles.dropDownItem}
-            onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
-            <Picker.Item label="selecione uma pessoa" value="" />
-            {patients.map(({name, id_patient}, index) => (
-              <Picker.Item label={name} value={id_patient} key={index} />
-            ))}
-          </Picker>
+            <Text style={styles.fieldName}>Selecione uma pessoa</Text>
+            <Picker
+              selectedValue={selected}
+              style={styles.dropDownHeight}
+              itemStyle={styles.dropDownItem}
+              onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}>
+              <Picker.Item label="selecione uma pessoa" value="" />
+              {patients.map(({name, id_patient}, index) => (
+                <Picker.Item label={name} value={id_patient} key={index} />
+              ))}
+            </Picker>
 
-          <Text style={[styles.fieldName, styles.fieldRed]}>
-            Cadastrar nova pessoa
-          </Text>
+            <Text style={[styles.fieldName, styles.fieldRed]}>
+              Cadastrar nova pessoa
+            </Text>
+          </View>
+
+          <View style={styles.marginFields}>
+            <Text style={styles.fieldName}>Registro da comorbidade</Text>
+
+            <TextInput
+              style={styles.textArea}
+              placeholder="Digite os registros ..."
+              selectionColor="#FF1F1F"
+              onChangeText={setTextReport}
+              multiline={true}
+              numberOfLines={4}
+            />
+          </View>
         </View>
 
-        <View style={styles.marginFields}>
-          <Text style={styles.fieldName}>Registro da comorbidade</Text>
-
-          <TextInput
-            style={styles.textArea}
-            placeholder="Digite os registros ..."
-            onChangeText={setTextReport}
-            multiline={true}
-            numberOfLines={4}
-          />
+        <View style={styles.internWrapper}>
+          <View style={styles.marginFields}>
+            <Text style={styles.multimidiaText}>Multimídia</Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.internWrapper}>
-        <View style={styles.marginFields}>
-          <Text style={styles.multimidiaText}>Multimídia</Text>
-        </View>
-      </View>
-
-      <Button title="Enviar" onPress={sendReport} />
-    </ScrollView>
+        <Button title="Enviar" onPress={sendReport} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

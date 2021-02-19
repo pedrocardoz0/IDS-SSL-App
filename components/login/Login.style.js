@@ -15,7 +15,7 @@ export default StyleSheet.create({
     borderColor: '#000',
     borderRadius: 16,
     padding: Platform.OS === 'ios' ? 20 : 15,
-    marginVertical: 10,
+    marginVertical: Platform.OS === 'ios' ? '5%' : '8%',
     textTransform: 'lowercase',
   },
 
@@ -28,6 +28,7 @@ export default StyleSheet.create({
   wrapperButton: {
     flex: 1,
     alignItems: 'center',
+    paddingTop: '25%',
   },
 
   sendButton: {
