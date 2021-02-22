@@ -1,22 +1,29 @@
 import {Platform, StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    marginVertical: Platform.OS === 'ios' ? '20%' : '10%',
+  container_logo: {
+    marginVertical: Platform.OS === 'ios' ? '15%' : '18%',
+    alignItems: 'center',
   },
 
-  secondaryText: {
-    fontSize: 30,
+  wrapper_principal: {
+    borderRadius: 6,
+    backgroundColor: '#27AE60',
+  },
+
+  principal: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#30475E',
+    color: '#FFF',
+    textTransform: 'uppercase',
   },
 
-  principalText: {
-    fontSize: 53,
+  secondary: {
+    fontSize: 24,
     fontWeight: 'bold',
-  },
-
-  redText: {
-    color: '#F05454',
+    color: '#59C36A',
+    textTransform: 'uppercase',
   },
 });

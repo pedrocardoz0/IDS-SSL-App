@@ -1,24 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Platform,
   View,
   Text,
   SafeAreaView,
-  TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
 import Logo from '../logo';
+import FormField from '../input/Input';
+import {formData} from '../input/formdata';
+
 import AuthAPI from '../../src/api/Auth';
 import styles from './Login.style';
 
-
 const Login = (props) => {
-  const [email, setEmail] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
+  const [formValues, handleFormValueChange, setFormValues] = formData({
+    email: '',
+    password: '',
+  });
 
   function loginUser() {
-    AuthAPI.login(email, password)
+    AuthAPI.login(formValues.email, formValues.password)
       .then((response) => {
         props.getUser();
       })
@@ -35,28 +38,56 @@ const Login = (props) => {
         keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}>
         <Logo />
 
-        <TextInput
-          style={styles.inputContainer}
-          placeholder="email"
-          autoCapitalize="none"
-          placeholderTextColor="#A0A3BD"
-          autoCorrect={false}
-          keyboardType="email-address"
-          onChangeText={(mess) => setEmail(mess)}
-        />
+        <View style={styles.input_container}>
+          <View style={styles.input_container_wrapper_text}>
+            <TouchableOpacity>
+              <Text style={styles.input_container_text}>Login</Text>
+            </TouchableOpacity>
 
-        <TextInput
-          style={styles.inputContainer}
-          placeholder="senha"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          onChangeText={(mess) => setPassword(mess)}
-        />
-        <View style={styles.wrapperButton}>
-          <TouchableOpacity style={styles.sendButton} onPress={loginUser}>
-            <Text style={styles.sendButtonText}>Logar</Text>
-          </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={[styles.input_container_text, {opacity: 0.4}]}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.input_container_inner}>
+            <Text style={styles.wellcome_text}>Bem vindo de volta</Text>
+            <Text style={styles.wellcome_text_sub}>entre com a sua conta</Text>
+
+            <FormField
+              formKey="email"
+              placeholder="email"
+              textInputProps={{
+                keyboardType: 'email-address',
+                autoCapitalize: 'none',
+                value: formValues.email,
+              }}
+              handleFormValueChange={handleFormValueChange}
+            />
+
+            <FormField
+              formKey="password"
+              placeholder="senha"
+              textInputProps={{
+                secureTextEntry: true,
+                autoCapitalize: 'none',
+                value: formValues.password,
+              }}
+              handleFormValueChange={handleFormValueChange}
+            />
+
+            <View style={styles.wrapperButton}>
+              <TouchableOpacity style={styles.sendButton} onPress={loginUser}>
+                <Text style={styles.sendButtonText}>Logar</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.recover_text}>
+              Esqueçeu a senha?{' '}
+              <Text style={styles.recover_text_green}>Recupere aqui</Text>
+            </Text>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
