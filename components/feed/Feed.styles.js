@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 0.2,
-    backgroundColor: '#FFF',
+    backgroundColor: '#FEFEFE',
     padding: 26,
     borderRadius: 16,
     marginBottom: 16,
@@ -19,12 +19,21 @@ export default StyleSheet.create({
   },
 
   cardTitle: {
+    color: '#59C36A',
+    paddingHorizontal: 20,
     fontWeight: 'bold',
     fontSize: 24,
-    height: '90%',
+    height: '20%',
+  },
+
+  cardSubTitle: {
+    color: '#0D253C',
+    fontSize: 14,
+    paddingLeft: 20,
   },
 
   image: {
-    height: 100,
+    borderRadius: 16,
+    height: 200,
   },
 });

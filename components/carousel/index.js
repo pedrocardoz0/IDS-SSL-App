@@ -17,11 +17,11 @@ class MyCarousel extends Component {
         },
         {
           image: require('../../images/image.png'),
-          text: 'Text 2',
+          text: 'Cultura',
         },
         {
           image: require('../../images/oca.png'),
-          text: 'Text 3',
+          text: 'História',
         },
       ],
     };
@@ -35,23 +35,19 @@ class MyCarousel extends Component {
           marginLeft: 15,
           marginRight: 15,
         }}>
-        
-          <Image
-            style={{width: '100%', borderRadius: 28}}
-            source={item.image}
-          />
-          <Text
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 20,
-              color: '#FFF',
-              fontSize: 18,
-              fontWeight: 'bold',
-              padding: 20,
-            }}>
-            {item.text}
-          </Text>
+        <Image style={{width: '100%', borderRadius: 28}} source={item.image} />
+        <Text
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 20,
+            color: '#FFF',
+            fontSize: 26,
+            fontWeight: 'bold',
+            padding: 20,
+          }}>
+          {item.text}
+        </Text>
       </View>
     );
   }
