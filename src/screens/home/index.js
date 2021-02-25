@@ -3,6 +3,7 @@ import {View, SafeAreaView} from 'react-native';
 import Header from '../../../components/header/Header';
 import Layout from '../../../components/layout';
 import Feed from '../../../components/feed';
+import MyCarousel from '../../../components/carousel';
 import styles from './home.styles';
 
 export default function HomeScreen({navigation}) {
@@ -29,7 +30,9 @@ export default function HomeScreen({navigation}) {
     <SafeAreaView style={styles.main}>
       <View>
         <Header />
-
+        <View style={{paddingBottom: 10, borderColor: '#FFF', borderWidth: 1}}>
+          <MyCarousel />
+        </View>
         <Layout>
           {data.map((d, index) => {
             return (
