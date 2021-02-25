@@ -2,10 +2,8 @@ import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
-  TextInput,
   ScrollView,
   Image,
-  Button,
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
