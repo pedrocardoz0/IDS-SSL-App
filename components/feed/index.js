@@ -6,7 +6,7 @@ import styles from './Feed.styles';
 function Feed(props) {
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate('Comorbity')}
+      onPress={() => props.navigation.navigate('Article')}
       style={styles.container}>
       <View style={styles.interWrapper}>
         <View style={styles.helfWidth}>

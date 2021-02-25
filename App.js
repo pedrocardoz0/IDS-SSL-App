@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import HomeDrawerStack from './src/stack/HomeDrawerStack';
-import ComorbityStack from './src/stack/ComorbityStack';
+import ArticleStack from './src/stack/ArticleStack';
 import Login from './components/login/Login';
 
 import UserAPI from './src/api/User';
@@ -51,8 +51,8 @@ class App extends Component {
                 options={{headerShown: false}}
               />
               <Stack.Screen
-                name="Comorbity"
-                component={ComorbityStack}
+                name="Article"
+                component={ArticleStack}
                 options={{headerShown: false}}
               />
             </Stack.Navigator>

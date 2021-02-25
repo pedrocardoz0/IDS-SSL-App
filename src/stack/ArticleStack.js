@@ -1,14 +1,14 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ReportComorbityScreen from '../screens/comorbity/ReportComorbityScreen';
+import ArticleScreen from '../screens/article/ArticleScreen';
 
-const ComorbityStack = () => {
+const ArticleStack = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="TriageScreen">
+    <Stack.Navigator initialRouteName="ArticleScreen">
       <Stack.Screen
-        name="ReportScreen"
-        component={ReportComorbityScreen}
+        name="ArticleScreen"
+        component={ArticleScreen}
         options={{
           headerShown: true,
           title: 'Voltar',
@@ -25,4 +25,4 @@ const ComorbityStack = () => {
   );
 };
 
-export default ComorbityStack;
+export default ArticleStack;

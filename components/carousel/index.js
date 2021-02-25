@@ -23,6 +23,10 @@ class MyCarousel extends Component {
           image: require('../../images/oca.png'),
           text: 'História',
         },
+        {
+          image: require('../../images/imageRela2.png'),
+          text: 'Relatórios',
+        },
       ],
     };
   }
